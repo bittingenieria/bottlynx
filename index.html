@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BottLynx · Tu parque de troncos, en tiempo real</title>
+<meta name="description" content="BottLynx: el escáner de tu parque de troncos en tiempo real, en el navegador y en el móvil. Objetivos por box, alertas al completar pedidos, informes PDF y chat con IA. Por Bitt Ingeniería."/>
+<meta property="og:title" content="BottLynx · Tu parque de troncos, en tiempo real"/>
+<meta property="og:description" content="Escáner del parque de troncos en tiempo real, objetivos por box, alertas, informes PDF y chat con IA. Plataforma web por Bitt Ingeniería."/>
+<meta property="og:image" content="assets/og-preview.png"/>
+<meta property="og:type" content="website"/>
+<link rel="icon" type="image/png" href="assets/logo_bitt.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f8f8;--card:#fff;--dark:#2d2d2d;--green:#4caf68;--green-d:#3a9a55;--green-1:#2a7a44;
+  --green-l:#8fdba3;--soft:#eaf6ee;--soft2:#dcefe3;--ink:#1a1a1a;--muted:#555;--line:#e0e0e0;
+  --ft:'Barlow Condensed',sans-serif;--fb:'Inter',system-ui,sans-serif;
+  --radius:14px;--shadow:0 6px 26px rgba(0,0,0,.07);--shadow-s:0 16px 44px rgba(0,0,0,.14);--tr:.3s ease;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+.container{max-width:1180px;margin:0 auto;padding:0 22px}
+.section{padding:84px 0}
+.section-title{font-family:var(--ft);font-size:clamp(2rem,4.5vw,2.9rem);font-weight:800;text-align:center;color:var(--ink);margin-bottom:14px;line-height:1.08;letter-spacing:.5px}
+.section-sub{color:var(--muted);text-align:center;max-width:720px;margin:0 auto 50px;font-size:1.05rem}
+.wm{font-family:var(--ft);font-weight:800;color:var(--ink);letter-spacing:1px;line-height:1}
+.wm .tt{color:var(--green)}
+header{position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);box-shadow:0 1px 10px rgba(0,0,0,.05);z-index:100;padding:12px 0}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav .left{display:flex;align-items:center;gap:13px}
+.nav .left img{height:32px}
+.nav .left .wm{font-size:1.7rem}
+.nav .links{display:flex;gap:8px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:11px;font-weight:600;font-size:.96rem;cursor:pointer;transition:var(--tr);border:none;text-align:center}
+.btn-primary{background:var(--green);color:#fff;box-shadow:0 6px 16px rgba(76,175,104,.32)}
+.btn-primary:hover{background:var(--green-d);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--green-1);border:2px solid var(--green)}
+.btn-outline:hover{background:var(--green);color:#fff}
+.btn-light{background:#fff;color:var(--green-1)}.btn-light:hover{transform:translateY(-2px)}
+.btn-sm{padding:9px 16px;font-size:.9rem}
+.nav .links .btn-ghost{background:transparent;color:var(--ink);padding:9px 12px}
+.nav .links .btn-ghost:hover{color:var(--green-d)}
+.hero{position:relative;background:var(--dark);color:#fff;padding:82px 0 92px;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-160px;right:-160px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(76,175,104,.30),transparent 70%)}
+.hero::after{content:"";position:absolute;bottom:-220px;left:-180px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(76,175,104,.12),transparent 70%)}
+.hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:46px;align-items:center;position:relative;z-index:2}
+.hero .wm{color:#fff;font-size:3rem;margin-bottom:14px}
+.badge{display:inline-block;background:rgba(76,175,104,.18);border:1px solid rgba(76,175,104,.5);color:var(--green-l);padding:7px 16px;border-radius:30px;font-weight:600;font-size:.8rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+.hero h1{font-family:var(--ft);font-size:clamp(2.3rem,4.8vw,3.7rem);font-weight:800;line-height:1.03;margin-bottom:16px;letter-spacing:.5px}
+.hero h1 span{color:var(--green-l)}
+.hero .lead{font-size:1.16rem;color:#cdd2ce;margin-bottom:24px;max-width:540px;line-height:1.5}
+.hero .ctas{display:flex;gap:13px;flex-wrap:wrap}
+.hero-shot{border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.trust{background:#fff;padding:24px 0;border-bottom:1px solid var(--line)}
+.trust-in{display:flex;justify-content:center;gap:46px;flex-wrap:wrap}
+.trust-it{font-size:.92rem;color:var(--muted);display:flex;align-items:center;gap:8px}
+.trust-it strong{color:var(--green-1);font-family:var(--ft);font-size:1.06rem;letter-spacing:.5px}
+.ba{background:#fff}
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:980px;margin:0 auto}
+.ba-card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--bg)}
+.ba-card .h{padding:16px 22px;font-family:var(--ft);font-weight:800;font-size:1.3rem;letter-spacing:.5px;color:#fff}
+.ba-card.before .h{background:#8a8a8a}
+.ba-card.after .h{background:var(--green)}
+.ba-card ul{list-style:none;padding:18px 22px}
+.ba-card li{font-size:.96rem;color:var(--ink);padding-left:28px;position:relative;margin:12px 0;line-height:1.4}
+.ba-card.before li::before{content:"✕";position:absolute;left:0;color:#b0b0b0;font-weight:700;font-size:1rem}
+.ba-card.after li::before{content:"✓";position:absolute;left:0;color:var(--green-d);font-weight:700;font-size:1rem}
+.features{background:linear-gradient(180deg,var(--bg),var(--soft))}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feat{background:#fff;border-radius:var(--radius);padding:26px 22px;box-shadow:var(--shadow);transition:var(--tr);border-top:4px solid var(--green)}
+.feat:hover{transform:translateY(-4px);box-shadow:var(--shadow-s)}
+.feat .ic{width:50px;height:50px;background:var(--soft);border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.feat .ic svg{width:26px;height:26px;stroke:var(--green-d);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{font-size:1.06rem;color:var(--green-1);margin-bottom:6px;font-weight:700}
+.feat p{font-size:.92rem;color:var(--muted)}
+.shots{background:#fff}
+.shots-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.shot-card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--tr);background:#fff}
+.shot-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-s)}
+.shot-card img{width:100%;border-bottom:1px solid var(--line)}
+.shot-card .cap{padding:14px 18px}
+.shot-card .cap h4{font-size:1rem;color:var(--green-1);font-weight:700;margin-bottom:2px}
+.shot-card .cap p{font-size:.88rem;color:var(--muted)}
+.shot-card.wide{grid-column:1/-1}
+.shots-sub{margin:42px 0 22px;text-align:center;font-family:var(--ft);font-size:1.5rem;font-weight:700;color:var(--ink);letter-spacing:.5px}
+.shots-grid.q4{grid-template-columns:repeat(2,1fr)}
+.how{background:linear-gradient(180deg,var(--soft),var(--bg))}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1000px;margin:0 auto}
+.step{background:#fff;border-radius:var(--radius);padding:30px 26px;box-shadow:var(--shadow);text-align:center}
+.step .n{width:54px;height:54px;border-radius:50%;background:var(--green);color:#fff;font-family:var(--ft);font-weight:800;font-size:1.5rem;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.step h4{font-size:1.1rem;color:var(--green-1);margin-bottom:8px;font-weight:700}
+.step p{font-size:.94rem;color:var(--muted)}
+.plans{background:#fff}
+.plans-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;max-width:820px;margin:0 auto 22px;align-items:stretch}
+.plan{border:1px solid var(--line);border-radius:18px;padding:30px 26px;display:flex;flex-direction:column;background:var(--bg);transition:var(--tr)}
+.plan:hover{transform:translateY(-4px);box-shadow:var(--shadow-s)}
+.plan.pop{border:2px solid var(--green);box-shadow:var(--shadow-s);position:relative;background:#fff}
+.plan.pop::before{content:"Recomendado";position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px}
+.plan .nm{font-family:var(--ft);font-weight:800;font-size:1.8rem;color:var(--ink);letter-spacing:.5px}
+.plan .pr{color:var(--green-d);font-size:1rem;font-weight:700;margin:2px 0 16px}
+.plan ul{list-style:none;flex:1;margin-bottom:20px}
+.plan li{font-size:.92rem;color:var(--ink);padding-left:24px;position:relative;margin:9px 0;line-height:1.4}
+.plan li::before{content:"✓";position:absolute;left:0;color:var(--green-d);font-weight:700}
+.plan li.no{color:#9aa29c}
+.plan li.no::before{content:"✕";color:#c2c8c3}
+.activo{max-width:820px;margin:0 auto;background:var(--dark);color:#fff;border-radius:18px;padding:30px 34px;position:relative;overflow:hidden}
+.activo::after{content:"";position:absolute;right:-80px;bottom:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(76,175,104,.25),transparent 70%)}
+.activo .ah{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px;position:relative;z-index:2;border-bottom:1px solid rgba(255,255,255,.14);padding-bottom:14px;margin-bottom:14px}
+.activo .ah .nm{font-family:var(--ft);font-weight:800;font-size:1.7rem;letter-spacing:.5px}
+.activo .ah .nm span{color:var(--green-l)}
+.activo .ah .pr{font-family:var(--ft);font-weight:800;font-size:2.2rem}
+.activo .ah .pr small{font-size:.9rem;color:#b9c2bb;font-weight:500;font-family:var(--fb)}
+.activo .desc{position:relative;z-index:2;color:#c7cdc8;font-size:.92rem;margin-bottom:14px}
+.activo .ag{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px 18px}
+.activo .ag span{font-size:.9rem;color:#e7ece8;padding-left:22px;position:relative}
+.activo .ag span::before{content:"✓";position:absolute;left:0;color:var(--green-l);font-weight:700}
+.plan-note{text-align:center;color:var(--muted);font-size:.86rem;margin-top:16px;font-style:italic}
+.cta{background:linear-gradient(135deg,var(--dark),#242424);color:#fff;position:relative;overflow:hidden}
+.cta::after{content:"";position:absolute;right:-160px;bottom:-160px;width:520px;height:520px;background:radial-gradient(circle,rgba(76,175,104,.22),transparent 70%)}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center;position:relative;z-index:2}
+.cta h2{font-family:var(--ft);font-size:clamp(2rem,4.5vw,2.9rem);color:#fff;line-height:1.05;margin-bottom:14px}
+.cta h2 span{color:var(--green-l)}
+.cta p{color:#c7cdc8;font-size:1.08rem;margin-bottom:22px;max-width:460px}
+.cta .data{display:flex;flex-direction:column;gap:10px;font-size:1rem;color:#dfe5e0}
+.cta .data a{color:var(--green-l);font-weight:600}
+form{background:#fff;border-radius:18px;padding:28px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+form label{display:block;font-size:.84rem;font-weight:600;color:var(--ink);margin:0 0 5px}
+form input,form textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-family:inherit;font-size:.95rem;margin-bottom:14px;color:var(--ink);background:#fbfdfb;transition:var(--tr)}
+form input:focus,form textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(76,175,104,.15)}
+form textarea{resize:vertical;min-height:96px}
+form .btn-primary{width:100%}
+footer{background:var(--dark);color:#b9c2bb;padding:38px 0;text-align:center;font-size:.9rem}
+footer .fl{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:12px}
+footer .fl img{height:32px;filter:brightness(0) invert(1);opacity:.9}
+footer .fl .wm{font-size:1.5rem;color:#fff}
+footer a{color:var(--green-l)}
+footer a:hover{color:#fff}
+footer .yr{font-style:italic;color:#8a928c;margin-top:6px}
+@media(max-width:960px){
+  .hero-grid,.cta-grid{grid-template-columns:1fr;text-align:center}
+  .hero .lead{margin-left:auto;margin-right:auto}.hero .ctas{justify-content:center}
+  .fgrid,.steps{grid-template-columns:repeat(2,1fr)}
+  .activo .ag{grid-template-columns:1fr 1fr}
+  .cta .data{align-items:center}
+  .nav .links .btn-ghost{display:none}
+}
+@media(max-width:600px){
+  .section{padding:54px 0}.container{padding:0 18px}
+  .fgrid,.shots-grid,.shots-grid.q4,.steps,.plans-grid,.ba-grid,.activo .ag{grid-template-columns:1fr}
+  .hero{padding:50px 0 60px}.hero .wm{font-size:2.3rem}
+  .nav .left .wm{font-size:1.45rem}.nav .links{gap:6px}
+  .trust-in{gap:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container nav">
+    <div class="left">
+      <img src="assets/logo_bitt.png" alt="Bitt Ingeniería"/>
+      <span class="wm">Bo<span class="tt">tt</span>Lynx</span>
+    </div>
+    <div class="links">
+      <a href="#features" class="btn btn-ghost btn-sm">Funcionalidades</a>
+      <a href="#planes" class="btn btn-ghost btn-sm">Planes</a>
+      <a href="#demo" class="btn btn-primary btn-sm">Solicitar demo</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="badge">Escáner del parque de troncos</span>
+      <div class="wm">Bo<span class="tt">tt</span>Lynx</div>
+      <h1>Tu parque de troncos,<br/><span>en tiempo real.</span></h1>
+      <p class="lead">BottLynx digitaliza el escáner de tu parque desde el primer día. Cada tronco medido, objetivos por box, alertas al completar pedidos, informes PDF y chat con IA — en el navegador y en el móvil.</p>
+      <div class="ctas">
+        <a href="#capturas" class="btn btn-light">Ver demo</a>
+        <a href="#demo" class="btn btn-primary">Contactar</a>
+      </div>
+    </div>
+    <div class="hero-shot">
+      <img src="assets/capturas/WhatsApp%20Image%202026-06-06%20at%2018.19.55.jpeg" alt="Dashboard del escáner BottLynx en tiempo real"/>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="container trust-in">
+    <div class="trust-it">📡 <strong>Tiempo real</strong> · tronco a tronco</div>
+    <div class="trust-it">🎯 <strong>Objetivos por box</strong> · pedidos diarios</div>
+    <div class="trust-it">🔒 <strong>Acceso privado</strong> · por cliente</div>
+    <div class="trust-it">🛠️ <strong>Llave en mano</strong> · Bitt Ingeniería</div>
+  </div>
+</section>
+
+<!-- PROBLEMA / SOLUCION -->
+<section class="section ba">
+  <div class="container">
+    <h2 class="section-title">Del recuento a mano a los datos reales</h2>
+    <p class="section-sub">Así cambia el control de tu parque de troncos con BottLynx.</p>
+    <div class="ba-grid">
+      <div class="ba-card before">
+        <div class="h">Antes</div>
+        <ul>
+          <li>Sin saber cuántos troncos ni m³ se han medido hoy</li>
+          <li>Reparto por box llevado a mano, con errores</li>
+          <li>No sabes cuándo un box completa su pedido</li>
+          <li>Sin histórico fiable del escáner</li>
+        </ul>
+      </div>
+      <div class="ba-card after">
+        <div class="h">Después</div>
+        <ul>
+          <li>Cada tronco medido aparece al instante</li>
+          <li>Objetivo y stock por box, siempre a la vista</li>
+          <li>Alerta + email al completar cada pedido</li>
+          <li>Histórico detallado por día e informes PDF</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features" id="features">
+  <div class="container">
+    <h2 class="section-title">El parque de troncos, bajo control</h2>
+    <p class="section-sub">Diseñada para el día a día industrial: clara, rápida y accesible desde cualquier dispositivo.</p>
+    <div class="fgrid">
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div><h3>Dashboard del escáner</h3><p>Troncos, m³ y reparto por box en tiempo real, tronco a tronco.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></div><h3>Objetivos por box</h3><p>Pedido diario por box, general o individual, con barra de progreso.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="5" rx="2"/><path d="M3 12h11"/></svg></div><h3>Barras de progreso con zona stock</h3><p>Lo medido por encima del objetivo se marca como stock.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div><h3>Reset de boxes</h3><p>Reinicio global o por box al arrancar un pedido nuevo.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h3>Pedidos completados</h3><p>Contador de pedidos cerrados por cada box.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H5.2L4 17.2z"/><path d="M8 9h8M8 12h5"/></svg></div><h3>Alerta + email por box</h3><p>Aviso automático al completar el pedido de cada box.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="6" y="11" width="3" height="7"/><rect x="11" y="7" width="3" height="11"/><rect x="16" y="13" width="3" height="5"/></svg></div><h3>Histórico detalle por día</h3><p>Desglose por día y por box, con filtros e informes PDF.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>Chat con IA</h3><p>Consultas en lenguaje natural: boxes, último tronco, medias.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="section shots" id="capturas">
+  <div class="container">
+    <h2 class="section-title">Así se ve por dentro</h2>
+    <p class="section-sub">Capturas reales de la plataforma BottLynx en funcionamiento.</p>
+    <div class="shots-grid">
+      <div class="shot-card wide"><img src="assets/capturas/WhatsApp%20Image%202026-06-06%20at%2018.19.55.jpeg" alt="Dashboard del escáner"/><div class="cap"><h4>Dashboard del escáner</h4><p>Troncos hoy, m³ medidos, boxes activos, último tronco y distribución por box con objetivos.</p></div></div>
+      <div class="shot-card"><img src="assets/capturas/WhatsApp%20Image%202026-06-06%20at%2018.20.30.jpeg" alt="Troncos por hora"/><div class="cap"><h4>Troncos por hora + registro</h4><p>Escaneos por hora y registro con diámetro, longitud y volumen de cada tronco.</p></div></div>
+      <div class="shot-card"><img src="assets/capturas/WhatsApp%20Image%202026-06-06%20at%2018.22.10.jpeg" alt="Alertas por box"/><div class="cap"><h4>Alertas por box</h4><p>Aviso de pedido completado por box, con el acumulado desde el reset y la hora exacta.</p></div></div>
+      <div class="shot-card"><img src="assets/capturas/WhatsApp%20Image%202026-06-06%20at%2018.21.37.jpeg" alt="Chat con IA"/><div class="cap"><h4>Chat con IA + Soporte Bitt</h4><p>Pregunta en lenguaje natural y contacta con Bitt desde el mismo chat.</p></div></div>
+    </div>
+
+    <div class="shots-sub">El informe PDF que recibes cada mes</div>
+    <div class="shots-grid q4">
+      <div class="shot-card"><img src="assets/capturas/informe%201.jpeg" alt="Informe PDF · resumen ejecutivo"/><div class="cap"><h4>Resumen ejecutivo del escáner</h4><p>Troncos, m³, diámetros medios y comparativa con el periodo anterior.</p></div></div>
+      <div class="shot-card"><img src="assets/capturas/informe%202.jpeg" alt="Informe PDF · producción diaria"/><div class="cap"><h4>Producción diaria</h4><p>Troncos y volumen medidos por día, con la media del periodo.</p></div></div>
+      <div class="shot-card"><img src="assets/capturas/informe%203.jpeg" alt="Informe PDF · distribución por box"/><div class="cap"><h4>Distribución por box</h4><p>Reparto acumulado del periodo por box, en tabla y gráfica.</p></div></div>
+      <div class="shot-card"><img src="assets/capturas/informe%204.jpeg" alt="Informe PDF · análisis de diámetros"/><div class="cap"><h4>Análisis de diámetros + conclusiones</h4><p>Distribución por calibre, alertas del periodo y conclusiones automáticas.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section how" id="como">
+  <div class="container">
+    <h2 class="section-title">¿Cómo funciona?</h2>
+    <p class="section-sub">En tres pasos, sin que tu equipo instale ni configure nada.</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h4>Conectamos tu escáner</h4><p>Bitt enlaza el escáner del parque a la plataforma, llave en mano.</p></div>
+      <div class="step"><div class="n">2</div><h4>Los troncos fluyen en tiempo real</h4><p>Cada tronco medido aparece en el panel, en navegador o móvil.</p></div>
+      <div class="step"><div class="n">3</div><h4>Tú decides con información real</h4><p>Objetivos por box, alertas al completar pedidos e informes PDF.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANES -->
+<section class="section plans" id="planes">
+  <div class="container">
+    <h2 class="section-title">Planes</h2>
+    <p class="section-sub">Precio a consultar según el número de boxes y el alcance. Instalación llave en mano incluida.</p>
+    <div class="plans-grid">
+      <div class="plan">
+        <div class="nm">Base</div><div class="pr">Precio a consultar</div>
+        <ul>
+          <li>Dashboard tiempo real (PC y móvil)</li>
+          <li>Chat con IA en lenguaje natural</li>
+          <li>Alertas automáticas + email</li>
+          <li>Informes PDF mensuales y quincenales</li>
+          <li>Histórico con filtros de fechas</li>
+          <li>Soporte Bitt (canal de chat)</li>
+          <li class="no">Aplicación móvil PWA</li>
+          <li class="no">Notificaciones push en smartphone</li>
+        </ul>
+        <a href="#demo" class="btn btn-outline">Solicitar demo</a>
+      </div>
+      <div class="plan pop">
+        <div class="nm">Pro</div><div class="pr">Precio a consultar</div>
+        <ul>
+          <li>Todo lo del Plan Base</li>
+          <li>Aplicación móvil PWA instalable</li>
+          <li>Notificaciones push en tiempo real</li>
+          <li>Soporte VIP (respuesta prioritaria)</li>
+        </ul>
+        <a href="#demo" class="btn btn-primary">Solicitar demo</a>
+      </div>
+    </div>
+
+    <div class="activo">
+      <div class="ah">
+        <div class="nm">BottLynx <span>Activo</span></div>
+        <div class="pr">30€<small> /mes</small></div>
+      </div>
+      <div class="desc">Incluido el primer año · opcional a partir del segundo. Sin Activo: soporte puntual con coste por intervención.</div>
+      <div class="ag">
+        <span>Soporte 24/7</span>
+        <span>Actualizaciones y nuevas versiones automáticas</span>
+        <span>Asistencia remota</span>
+        <span>Revisión mensual de funcionamiento</span>
+        <span>Copia de seguridad doble verificada</span>
+        <span>Soporte puntual sin coste extra</span>
+      </div>
+    </div>
+    <p class="plan-note">+30 años en el sector. Sabemos lo que necesitas.</p>
+  </div>
+</section>
+
+<!-- CTA + FORM -->
+<section class="section cta" id="demo">
+  <div class="container cta-grid">
+    <div>
+      <h2>¿Hablamos de qué<br/><span>digitalizar primero?</span></h2>
+      <p>Solicita una demo y te enseñamos BottLynx funcionando en tiempo real, con datos de tu parque de troncos. Sin compromiso.</p>
+      <div class="data">
+        <div>✉️ <a href="mailto:bitt@bitt.es">bitt@bitt.es</a></div>
+        <div>📞 <a href="tel:+34607306219">607 306 219</a></div>
+        <div>🌐 <a href="https://panel.bitt.es">panel.bitt.es</a></div>
+      </div>
+    </div>
+    <form id="demoForm">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required/>
+      <label for="empresa">Empresa</label>
+      <input id="empresa" name="empresa" type="text" placeholder="Nombre del aserradero"/>
+      <label for="telefono">Teléfono</label>
+      <input id="telefono" name="telefono" type="tel" placeholder="Tu teléfono"/>
+      <label for="mensaje">Mensaje</label>
+      <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos qué te gustaría ver"></textarea>
+      <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="fl">
+      <img src="assets/logo_bitt.png" alt="Bitt Ingeniería"/>
+      <span class="wm">Bo<span class="tt">tt</span>Lynx</span>
+    </div>
+    <p>Desarrollado por <strong>Bitt Ingeniería</strong> ⚡ · <a href="mailto:bitt@bitt.es">bitt@bitt.es</a> · 607 306 219 · <a href="https://www.bitt.es">www.bitt.es</a></p>
+    <p class="yr">+30 años en el sector. Sabemos lo que necesitas.</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('demoForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var n=encodeURIComponent(this.nombre.value),emp=encodeURIComponent(this.empresa.value),
+      tel=encodeURIComponent(this.telefono.value),m=encodeURIComponent(this.mensaje.value);
+  var body='Nombre: '+n+'%0D%0AEmpresa: '+emp+'%0D%0ATeléfono: '+tel+'%0D%0A%0D%0A'+m;
+  window.location.href='mailto:bitt@bitt.es?subject='+encodeURIComponent('Solicitud de demo BottLynx')+'&body='+body;
+});
+</script>
+</body>
+</html>
