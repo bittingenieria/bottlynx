@@ -126,6 +126,15 @@ header{position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:bl
 .activo .ag span{font-size:.9rem;color:#e7ece8;padding-left:22px;position:relative}
 .activo .ag span::before{content:"✓";position:absolute;left:0;color:var(--green-l);font-weight:700}
 .plan-note{text-align:center;color:var(--muted);font-size:.86rem;margin-top:16px;font-style:italic}
+/* FAQ */
+.faq-wrap{max-width:820px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-q{width:100%;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 4px;text-align:left;font-family:var(--fb);font-size:1.05rem;font-weight:600;color:var(--ink)}
+.faq-q .ico{flex:0 0 auto;font-family:var(--ft);font-weight:800;font-size:1.7rem;color:var(--green);line-height:1}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{padding:0 4px 20px;color:var(--muted);font-size:.96rem;line-height:1.55}
+.faq-item.open .faq-a{max-height:360px}
+.faq-item.open .faq-q .ico{color:var(--green-d)}
 .cta{background:linear-gradient(135deg,var(--dark),#242424);color:#fff;position:relative;overflow:hidden}
 .cta::after{content:"";position:absolute;right:-160px;bottom:-160px;width:520px;height:520px;background:radial-gradient(circle,rgba(76,175,104,.22),transparent 70%)}
 .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center;position:relative;z-index:2}
@@ -317,7 +326,6 @@ footer .yr{font-style:italic;color:#8a928c;margin-top:6px}
           <li>Todo lo del Plan Base</li>
           <li>Aplicación móvil PWA instalable</li>
           <li>Notificaciones push en tiempo real</li>
-          <li>Soporte VIP (respuesta prioritaria)</li>
         </ul>
         <a href="#demo" class="btn btn-primary">Solicitar demo</a>
       </div>
@@ -329,8 +337,8 @@ footer .yr{font-style:italic;color:#8a928c;margin-top:6px}
         <div class="pr">30€<small> /mes</small></div>
       </div>
       <div class="desc">Incluido el primer año · opcional a partir del segundo. Sin Activo: soporte puntual con coste por intervención.</div>
+      <div style="position:relative;z-index:2;display:inline-block;background:var(--green);color:#fff;font-weight:700;font-size:.95rem;padding:8px 18px;border-radius:30px;margin-bottom:14px">⭐ Soporte 24/7 VIP</div>
       <div class="ag">
-        <span>Soporte 24/7</span>
         <span>Actualizaciones y nuevas versiones automáticas</span>
         <span>Asistencia remota</span>
         <span>Revisión mensual de funcionamiento</span>
@@ -368,6 +376,25 @@ footer .yr{font-style:italic;color:#8a928c;margin-top:6px}
   </div>
 </section>
 
+<!-- FAQ -->
+<section class="section faq" id="faq" style="background:#fff">
+  <div class="container">
+    <h2 class="section-title">Preguntas frecuentes</h2>
+    <p class="section-sub">Lo que suelen preguntarnos antes de dar el paso.</p>
+    <div class="faq-wrap">
+      <div class="faq-item"><button class="faq-q" type="button">¿Necesito tener ya algún sistema instalado?<span class="ico">+</span></button><div class="faq-a"><p>No. Instalamos todo: el escáner de troncos, el software y la conexión al sistema. Sin requisitos previos.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">¿Quién instala?<span class="ico">+</span></button><div class="faq-a"><p>Nuestro equipo de Bitt Ingeniería. La instalación es rápida y no interrumpe tu operativa habitual.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">¿Mis datos van a alguna nube?<span class="ico">+</span></button><div class="faq-a"><p>Los datos del escáner se procesan localmente. Solo se sincronizan con tu panel si tienes conexión — y siempre bajo tu control.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">¿Cuánto cuesta?<span class="ico">+</span></button><div class="faq-a"><p>Consulta nuestros planes o escríbenos a bitt@bitt.es. Te damos un presupuesto ajustado a tu número de boxes y volumen de producción.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">¿Funciona sin internet?<span class="ico">+</span></button><div class="faq-a"><p>Sí. BottLynx funciona en red local. Internet solo es necesario para acceder al panel desde fuera o recibir notificaciones push en el móvil.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">¿Y si tengo varios responsables?<span class="ico">+</span></button><div class="faq-a"><p>Todos pueden acceder al panel simultáneamente desde sus dispositivos y ver los datos en tiempo real.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">¿Hay formación para mis operarios?<span class="ico">+</span></button><div class="faq-a"><p>Sí. Formación incluida en la instalación. El sistema es visual e intuitivo — las barras de progreso por box hablan solas.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">¿Y el RGPD?<span class="ico">+</span></button><div class="faq-a"><p>Los datos son exclusivamente de producción industrial, sin datos personales. El acceso está protegido con credenciales seguras.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">¿Y si mi número de boxes cambia?<span class="ico">+</span></button><div class="faq-a"><p>Sin problema. La configuración de boxes es flexible y la podemos ajustar en cualquier momento desde el panel de administración.</p></div></div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="container">
@@ -381,6 +408,12 @@ footer .yr{font-style:italic;color:#8a928c;margin-top:6px}
 </footer>
 
 <script>
+document.querySelectorAll('.faq-q').forEach(function(b){
+  b.addEventListener('click',function(){
+    var it=b.parentElement, open=it.classList.toggle('open');
+    b.querySelector('.ico').textContent = open ? '−' : '+';
+  });
+});
 document.getElementById('demoForm').addEventListener('submit',function(e){
   e.preventDefault();
   var n=encodeURIComponent(this.nombre.value),emp=encodeURIComponent(this.empresa.value),
