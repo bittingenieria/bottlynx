@@ -95,6 +95,11 @@ header{position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:bl
 .shot-card.wide{grid-column:1/-1}
 .shots-sub{margin:42px 0 22px;text-align:center;font-family:var(--ft);font-size:1.5rem;font-weight:700;color:var(--ink);letter-spacing:.5px}
 .shots-grid.q4{grid-template-columns:repeat(2,1fr)}
+.movil-row{display:flex;gap:26px;justify-content:center;align-items:flex-start;flex-wrap:wrap}
+.movil-phone{text-align:center;max-width:260px}
+.movil-phone img{height:520px;width:auto;border-radius:22px;border:1px solid var(--line);box-shadow:var(--shadow-s);margin:0 auto}
+.movil-phone span{display:block;margin-top:12px;font-size:.9rem;color:var(--muted);font-weight:600}
+@media(max-width:600px){.movil-phone img{height:420px}}
 .how{background:linear-gradient(180deg,var(--soft),var(--bg))}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1000px;margin:0 auto}
 .step{background:#fff;border-radius:var(--radius);padding:30px 26px;box-shadow:var(--shadow);text-align:center}
@@ -204,7 +209,7 @@ footer .yr{font-style:italic;color:#8a928c;margin-top:6px}
       </div>
     </div>
     <div class="hero-shot">
-      <img src="assets/capturas/WhatsApp%20Image%202026-06-06%20at%2018.19.55.jpeg" alt="Dashboard del escáner BottLynx en tiempo real"/>
+      <img src="assets/capturas/pc-dashboard.jpeg" alt="Dashboard del escáner BottLynx en tiempo real"/>
     </div>
   </div>
 </section>
@@ -271,18 +276,25 @@ footer .yr{font-style:italic;color:#8a928c;margin-top:6px}
     <h2 class="section-title">Así se ve por dentro</h2>
     <p class="section-sub">Capturas reales de la plataforma BottLynx en funcionamiento.</p>
     <div class="shots-grid">
-      <div class="shot-card wide"><img src="assets/capturas/WhatsApp%20Image%202026-06-06%20at%2018.19.55.jpeg" alt="Dashboard del escáner"/><div class="cap"><h4>Dashboard del escáner</h4><p>Troncos hoy, m³ medidos, boxes activos, último tronco y distribución por box con objetivos.</p></div></div>
-      <div class="shot-card"><img src="assets/capturas/WhatsApp%20Image%202026-06-06%20at%2018.20.30.jpeg" alt="Troncos por hora"/><div class="cap"><h4>Troncos por hora + registro</h4><p>Escaneos por hora y registro con diámetro, longitud y volumen de cada tronco.</p></div></div>
-      <div class="shot-card"><img src="assets/capturas/WhatsApp%20Image%202026-06-06%20at%2018.22.10.jpeg" alt="Alertas por box"/><div class="cap"><h4>Alertas por box</h4><p>Aviso de pedido completado por box, con el acumulado desde el reset y la hora exacta.</p></div></div>
-      <div class="shot-card"><img src="assets/capturas/WhatsApp%20Image%202026-06-06%20at%2018.21.37.jpeg" alt="Chat con IA"/><div class="cap"><h4>Chat con IA + Soporte Bitt</h4><p>Pregunta en lenguaje natural y contacta con Bitt desde el mismo chat.</p></div></div>
+      <div class="shot-card wide"><img src="assets/capturas/pc-dashboard.jpeg" alt="Dashboard del escáner"/><div class="cap"><h4>Dashboard del escáner</h4><p>Troncos hoy, m³ medidos, boxes activos, último tronco y distribución por box con objetivos.</p></div></div>
+      <div class="shot-card"><img src="assets/capturas/pc-registro.jpeg" alt="Registro de escaneos"/><div class="cap"><h4>Registro de escaneos</h4><p>Cada tronco con su box, diámetro, longitud y volumen, tronco a tronco.</p></div></div>
+      <div class="shot-card"><img src="assets/capturas/pc-chat.jpeg" alt="Chat con IA"/><div class="cap"><h4>Chat con IA + Soporte Bitt</h4><p>Pregunta en lenguaje natural y contacta con Bitt desde el mismo chat.</p></div></div>
+      <div class="shot-card"><img src="assets/capturas/pc-historico.jpeg" alt="Histórico del escáner"/><div class="cap"><h4>Histórico del escáner</h4><p>Evolución de troncos y m³ por periodo, con máximos, mínimos y media.</p></div></div>
+    </div>
+
+    <div class="shots-sub">En el móvil, en tu bolsillo</div>
+    <div class="movil-row">
+      <div class="movil-phone"><img src="assets/capturas/movil-dashboard.jpeg" alt="Dashboard del escáner en el móvil"/><span>Dashboard y boxes</span></div>
+      <div class="movil-phone"><img src="assets/capturas/movil-chat.jpeg" alt="Chat con IA en el móvil"/><span>Chat con IA</span></div>
+      <div class="movil-phone"><img src="assets/capturas/movil-informes.jpeg" alt="Informes en el móvil"/><span>Informes PDF</span></div>
     </div>
 
     <div class="shots-sub">El informe PDF que recibes cada mes</div>
     <div class="shots-grid q4">
-      <div class="shot-card"><img src="assets/capturas/informe%201.jpeg" alt="Informe PDF · resumen ejecutivo"/><div class="cap"><h4>Resumen ejecutivo del escáner</h4><p>Troncos, m³, diámetros medios y comparativa con el periodo anterior.</p></div></div>
-      <div class="shot-card"><img src="assets/capturas/informe%202.jpeg" alt="Informe PDF · producción diaria"/><div class="cap"><h4>Producción diaria</h4><p>Troncos y volumen medidos por día, con la media del periodo.</p></div></div>
-      <div class="shot-card"><img src="assets/capturas/informe%203.jpeg" alt="Informe PDF · distribución por box"/><div class="cap"><h4>Distribución por box</h4><p>Reparto acumulado del periodo por box, en tabla y gráfica.</p></div></div>
-      <div class="shot-card"><img src="assets/capturas/informe%204.jpeg" alt="Informe PDF · análisis de diámetros"/><div class="cap"><h4>Análisis de diámetros + conclusiones</h4><p>Distribución por calibre, alertas del periodo y conclusiones automáticas.</p></div></div>
+      <div class="shot-card"><img src="assets/capturas/informe-1.jpeg" alt="Informe PDF · resumen ejecutivo"/><div class="cap"><h4>Resumen ejecutivo del escáner</h4><p>Troncos, m³, diámetros medios y comparativa con el periodo anterior.</p></div></div>
+      <div class="shot-card"><img src="assets/capturas/informe-2.jpeg" alt="Informe PDF · producción diaria"/><div class="cap"><h4>Producción diaria</h4><p>Troncos y volumen medidos por día, con la media del periodo.</p></div></div>
+      <div class="shot-card"><img src="assets/capturas/informe-3.jpeg" alt="Informe PDF · distribución por box"/><div class="cap"><h4>Distribución por box</h4><p>Reparto acumulado del periodo por box, en tabla y gráfica.</p></div></div>
+      <div class="shot-card"><img src="assets/capturas/informe-4.jpeg" alt="Informe PDF · análisis de diámetros"/><div class="cap"><h4>Análisis de diámetros + conclusiones</h4><p>Distribución por calibre, alertas del periodo y conclusiones automáticas.</p></div></div>
     </div>
   </div>
 </section>
